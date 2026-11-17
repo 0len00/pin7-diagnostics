@@ -52,6 +52,24 @@ Updates install over the previous version (same signing key) and keep your data.
 - Diagnostics are at your own risk. Do not write changes into modules unless you know what they do.
 - This repository only hosts the distributed APK. The source code is not published here.
 
+## KWP2000 addressing: wakeup address vs header target
+
+On a K-line module the 5-baud wakeup address and the address the same module expects in the
+ISO 14230 frame header are two different things. For most VAG controllers they are the same
+byte (ABS = `0x03`), which is why a fixed address usually works -- but not for all of them.
+The MK60 ABS/ESP controller this app was tested against wakes at `0x03` and then ignores every
+request addressed to `0x03`: its frames must carry target `0x28`. (EDC16 engine ECUs behave the
+same way, with `0x01` -> `0x10`.) A request to the wrong header address is dropped silently --
+the link stays up and the wakeup handshake succeeds, but every following request simply gets no
+reply, which looks like "the connection works but the module does not answer".
+
+Because that mapping belongs to the controller family and cannot be derived from the VAG module
+number, the app does not hardcode it. Before opening a diagnostic session it probes the
+candidates (`0x03`, `0x28`, `0x10`, `0x01`, `0x04`, `0x26`, `0x29`, `0x33`) with a harmless
+`1A 9B` (readEcuIdentification) request, which needs no prior session, and keeps the first
+address that answers. Supporting another KWP2000 controller normally means adding one candidate
+address, not a new code path.
+
 ## Engine and credits
 
 The diagnostic engine is based on **gmenounos**' project [kw1281test](https://github.com/gmenounos/kw1281test) — he is the author and owner of that KWP1281/KWP2000 engine. Many thanks for the work this app builds on.
