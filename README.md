@@ -1,55 +1,60 @@
 # Pin7 Diagnostics
 
-Tasuta Androidi diagnostikaäpp VAG-grupi autodele. APK on allalaaditav **Releases** lehelt — konto, registreerimine ega litsents ei ole vajalik.
+Free diagnostic app for VAG-group cars on Android. The APK is available on the **Releases** page — no account, registration or licence required.
 
-## Tähelepanu: rakendus on arendusjärgus
+## ⚠️ Work in progress
 
-Rakenduses **võib olla vigu ja kõik ei pruugi veel korralikult töötada**. Osa funktsioone on testimata või töötab ainult teatud moodulite/autodega:
+The app **may contain bugs and not everything may work properly yet**. Some features are untested or only work with certain modules/cars:
 
-- KWP2000 / KW2027 (ABS-moodulid) tugi on uuem ja vähem testitud kui KWP1281
-- vigane lugemine võib anda tühja tulemuse või katkestada ühenduse — proovi siis uuesti
-- mõõteplokid, adaptsioon ja põhiline seadistus sõltuvad mooduli toest ja võivad osaliselt mitte töötada
+- KWP2000 / KW2027 (ABS modules) support is newer and less tested than KWP1281
+- a failed read can return an empty result or drop the connection — just try again
+- measuring blocks, adaptation and basic settings depend on module support and may only partly work
 
-Kui midagi ei tööta, on see oodatud tagasiside, mitte garanteeritud funktsioon. Palun saada logi (vt „Probleemid“ allpool).
+If something does not work, that is expected feedback rather than a guaranteed feature. Please send a log (see "Issues" below).
 
-## Funktsioonid
+## Features
 
-- **KWP1281** (vanemad VAG-moodulid): veakoodide lugemine ja kustutamine, mõõteplokid, adaptsioon, põhiline seadistus
-- **KWP2000 / KW2027** (nt ABS-moodulid): veakoodide lugemine ja kustutamine, ident, sessioonid
-- **VDO kell** (aadress 17) ja mootoriplokk (aadress 01)
-- Logi kuvamine ja salvestamine seadmes
+- **KWP1281** (older VAG modules): read and clear fault codes, measuring blocks, adaptation, basic settings
+- **KWP2000 / KW2027** (e.g. ABS modules): read and clear fault codes, identification, sessions
+- **VDO cluster** (address 17) and engine module (address 01)
+- On-device log view and log export
 
-## Nõuded
+## Languages
 
-- Android 8.0 (API 26) või uuem, USB OTG tugi
-- USB-ODB2 kaabel FTDI (FT232) või CH340 kiibiga
-- Ühendus toimub K-liini (KWP1281) või KWP2000 kaudu — CAN-only autod ei ole toetatud
+The app interface is available in **English, Estonian and Russian**.
 
-## Paigaldamine
+## Requirements
 
-1. Ava [Releases](../../releases) ja laadi alla uusim `pin7diagnostics-*.apk`
-2. Luba telefonis „Paigalda tundmatutest allikatest“ (nt Seaded → Rakendused → Spetsiaalne juurdepääs)
-3. Ava APK ja paigalda
-4. Ühenda kaabel, anna äpile USB-luba ja vajuta „Ühenda”
+- Android 8.0 (API 26) or newer, with USB OTG support
+- USB OBD2 cable with an FTDI (FT232) or CH340 chip
+- Communication runs over the K-line (KWP1281) or KWP2000 — CAN-only cars are not supported
 
-Uuendused paigalduvad eelmise versiooni peale (sama allkirjavõti), andmeid ei kaotata.
+## Installation
 
-## Versioonid
+1. Open [Releases](../../releases) and download the latest `pin7diagnostics-*.apk`
+2. Allow installing from unknown sources on the phone (e.g. Settings → Apps → Special app access)
+3. Open the APK and install
+4. Connect the cable, grant USB permission to the app and tap "Connect"
 
-| Versioon | versionCode | Fail | MD5 |
-|---|---|---|---|
-| 1.36 | 37 | `pin7diagnostics-1.36.apk` | `e24fec0ed45e9a5f9221126ce2724993` |
+Updates install over the previous version (same signing key) and keep your data.
 
-## Märkused
+## Versions
 
-- Äpp on tasuta ja ilma reklaamideta; ostmist ega sisselogimist pole.
-- Diagnostika tegemine on omal vastutusel. Ära kirjuta moodulitesse muudatusi, kui ei tea, mida need teevad.
-- Siin repos on ainult levitatav APK. Lähtekoodi siin ei avaldata.
+| Version | versionCode | File | MD5 | Notes |
+|---|---|---|---|---|
+| 1.36 | 37 | `pin7diagnostics-1.36.apk` | `e24fec0ed45e9a5f9221126ce2724993` | stable free build |
+| 1.37 | 38 | `pin7diagnostics-1.37-test.apk` | `7368e72c16f349bf4312dd000aeb0a43` | test build, pre-release |
 
-## Engine ja tänud
+## Notes
 
-Diagnostikaengine põhineb **gmenounos**'e projektil [kw1281test](https://github.com/gmenounos/kw1281test) — tema on selle KWP1281/KWP2000 engine autor ja omanik. Suur tänu talle töö eest, millele see rakendus toetub.
+- The app is free and ad-free; there is nothing to buy and no sign-in.
+- Diagnostics are at your own risk. Do not write changes into modules unless you know what they do.
+- This repository only hosts the distributed APK. The source code is not published here.
 
-## Probleemid
+## Engine and credits
 
-Kui ühendus ei tööta, saada logi (äpis „Logi“ vaade → salvesta) koos auto mudeli, aasta ja mootorikoodiga Issue'sse.
+The diagnostic engine is based on **gmenounos**' project [kw1281test](https://github.com/gmenounos/kw1281test) — he is the author and owner of that KWP1281/KWP2000 engine. Many thanks for the work this app builds on.
+
+## Issues
+
+If the connection does not work, send a log (in the app: "Log" view → save) together with the car model, year and engine code as a GitHub Issue.
