@@ -15,7 +15,7 @@ If something does not work, that is expected feedback rather than a guaranteed f
 ## Features
 
 - **KWP1281** (older VAG modules): read and clear fault codes, measuring blocks, adaptation, basic settings
-- **KWP2000 / KW2027** (e.g. ABS modules): read and clear fault codes, identification, sessions
+- **KWP2000 / KW2027** (e.g. ABS modules): read and clear fault codes, identification, sessions — fault-code reading now works on an MK60 ABS controller (clearing still needs confirmation on a real car)
 - **VDO cluster** (address 17) and engine module (address 01)
 - On-device log view and log export
 
@@ -44,6 +44,7 @@ Updates install over the previous version (same signing key) and keep your data.
 |---|---|---|---|---|
 | 1.36 | 37 | `pin7diagnostics-1.36.apk` | `e24fec0ed45e9a5f9221126ce2724993` | stable free build |
 | 1.37 | 38 | `pin7diagnostics-1.37-test.apk` | `7368e72c16f349bf4312dd000aeb0a43` | test build, pre-release |
+| 1.41 | 42 | `pin7diagnostics-1.41-test.apk` | `219b4fc9d49ee03924b7d0dc5c9d2967` | test build, pre-release — KWP2000 fault-code reading works on MK60 ABS |
 
 ## Notes
 
