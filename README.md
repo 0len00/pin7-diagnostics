@@ -7,7 +7,7 @@ Free diagnostic app for VAG-group cars on Android. The APK is available on the *
 The app **may contain bugs and not everything may work properly yet**. Some features are untested or only work with certain modules/cars:
 
 - KWP2000 / KW2027 (ABS modules) support is newer and less tested than KWP1281
-- a failed read can return an empty result or drop the connection — just try again
+- a failed read can return an empty result — just try again
 - measuring blocks, adaptation and basic settings depend on module support and may only partly work
 
 If something does not work, that is expected feedback rather than a guaranteed feature. Please send a log (see "Issues" below).
@@ -15,7 +15,7 @@ If something does not work, that is expected feedback rather than a guaranteed f
 ## Features
 
 - **KWP1281** (older VAG modules): read and clear fault codes, measuring blocks, adaptation, basic settings
-- **KWP2000 / KW2027** (e.g. ABS modules): read and clear fault codes, identification, sessions — fault-code reading now works on an MK60 ABS controller (clearing still needs confirmation on a real car)
+- **KWP2000 / KW2027** (e.g. ABS modules): read and clear fault codes, identification, sessions — verified on an MK60 ABS/ESP controller (reading, clearing and the connection staying up)
 - **VDO cluster** (address 17) and engine module (address 01)
 - On-device log view and log export
 
@@ -71,6 +71,18 @@ candidates (`0x03`, `0x28`, `0x10`, `0x01`, `0x04`, `0x26`, `0x29`, `0x33`) with
 `1A 9B` (readEcuIdentification) request, which needs no prior session, and keeps the first
 address that answers. Supporting another KWP2000 controller normally means adding one candidate
 address, not a new code path.
+
+## Clearing fault codes on KWP2000 modules
+
+`0x14` is a slow service: some modules (e.g. MK60 ESP) erase their fault memory for 10–15 s and
+may not even send `7F 14 78` (responsePending) while doing it. The app therefore waits up to 12 s
+for the first frame (25 s overall), treats `7F 14 78` as "still working", and after a silent clear
+waits, drains the line and verifies the result with a DTC read instead of sending the next request
+variant into a busy module. Only one fault-code operation runs at a time, so pressing "Clear" twice
+does not queue a second clear.
+
+Earlier builds cut the wait at 8 s, sent a second clear into the erasing module, and the K-line
+stayed busy until the USB adapter reported `get_status request failed` and the connection closed.
 
 ## Engine and credits
 
