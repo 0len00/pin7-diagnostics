@@ -46,7 +46,7 @@ Updates install over the previous version (same signing key) and keep your data.
 | 1.37 | 38 | `pin7diagnostics-1.37-test.apk` | `7368e72c16f349bf4312dd000aeb0a43` | test build, pre-release |
 | 1.41 | 42 | `pin7diagnostics-1.41-test.apk` | `219b4fc9d49ee03924b7d0dc5c9d2967` | test build, pre-release — KWP2000 fault-code reading works on MK60 ABS |
 | 1.42 | 43 | `pin7diagnostics-1.42-test.apk` | `cba91886a219fb954c9dddfa375b0fc8` | test build, pre-release — fault-code meanings reviewed, 5 corrected and 30 added (ABS/ESP, engine, airbag) |
-| 1.43 | 44 | `pin7diagnostics-1.43-test.apk` | `b2ecdb64e68cae3391b96ab326a48299` | test build, pre-release — connection stays up: slow clear (0x14) no longer killed by the old 8 s timeout, no second clear sent into a silent module, keep-alive via 0x1A 9B when 0x3E is unsupported, one retry on transient USB read errors |
+| 1.43 | 44 | `pin7diagnostics-1.43-test.apk` | `b2ecdb64e68cae3391b96ab326a48299` | test build, pre-release — connection stays up: slow clear (0x14) no longer killed by the old 8 s timeout, no second clear sent into a silent module, keep-alive via 0x1A 9B when 0x3E is unsupported, one retry on transient USB read errors; confirmed in the car, connection holds |
 
 ## Notes
 
