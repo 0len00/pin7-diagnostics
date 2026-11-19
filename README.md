@@ -95,6 +95,23 @@ The app interface is available in **English, Estonian and Russian**.
 - USB OBD2 cable with an FTDI (FT232) or CH340 chip
 - Communication runs over the K-line (KWP1281) or KWP2000 — CAN-only cars are not supported
 
+## Which cars it works on
+
+The app talks to control units that speak **KWP1281** or **KWP2000 (KW 2027) over the K-line** - the VAG
+diagnostics of the mid-1990s to the early 2000s.
+
+- **VAG group only:** Volkswagen, Audi, Seat, Skoda.
+- **Modules that are covered:** engine (01), ABS (03), central electric (09), airbag (15), instrument cluster (17),
+  CAN gateway (19), immobilizer (25), central locking (35), navigation (37), comfort module CCM (46), radio (56/7C).
+- **The protocol is detected automatically**, so a KWP1281 module and a KWP2000 (KW 2027) module on the same car
+  both work without changing a setting.
+- **Confirmed in a car:** the MK60 ABS/ESP controller of the Golf 4 platform - fault codes, clearing, memory and
+  the connection staying up.
+- **Covered, but less tested:** VDO instrument clusters (SIA reset, actuator test, EEPROM/RAM), the KWP1281 side
+  (e.g. the ABS 5.3 in an Audi A4 B5), EDC15 flash read (read-only) and EDC16 KWP2000 addressing (`0x01` to `0x10`).
+
+**Not supported:** CAN-only cars (Golf 5, Passat B6 and newer), UDS / OBD-II mode diagnostics, non-VAG cars.
+
 ## Installation
 
 1. Open [Releases](../../releases) and download the latest `pin7diagnostics-*.apk`
