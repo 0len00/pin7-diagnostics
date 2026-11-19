@@ -126,10 +126,10 @@ Updates install over the previous version (same signing key) and keep your data.
 | Version | versionCode | File | MD5 | Notes |
 |---|---|---|---|---|
 | 1.36 | 37 | `pin7diagnostics-1.36.apk` | `e24fec0ed45e9a5f9221126ce2724993` | stable free build |
-| 1.37 | 38 | `pin7diagnostics-1.37-test.apk` | `7368e72c16f349bf4312dd000aeb0a43` | test build, pre-release |
-| 1.41 | 42 | `pin7diagnostics-1.41-test.apk` | `219b4fc9d49ee03924b7d0dc5c9d2967` | test build, pre-release — KWP2000 fault-code reading works on MK60 ABS |
-| 1.42 | 43 | `pin7diagnostics-1.42-test.apk` | `cba91886a219fb954c9dddfa375b0fc8` | test build, pre-release — fault-code meanings reviewed, 5 corrected and 30 added (ABS/ESP, engine, airbag) |
 | 1.43 | 44 | `pin7diagnostics-1.43.apk` | `b2ecdb64e68cae3391b96ab326a48299` | stable free build — KWP2000 ABS/ESP (address discovery, session, fault codes read/clear), 5 fault-code meanings corrected and 30 added, connection holds on clear (confirmed in the car) |
+
+Older test builds (1.37, 1.41, 1.42 and the 1.43 test build) are archived as hidden draft releases and are
+not downloadable from the Releases page.
 
 ## Notes
 
