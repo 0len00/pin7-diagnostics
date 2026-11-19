@@ -19,6 +19,72 @@ If something does not work, that is expected feedback rather than a guaranteed f
 - **VDO cluster** (address 17) and engine module (address 01)
 - On-device log view and log export
 
+## Pro tab: how to use the extra tools
+
+The **Pro** tab is the toolbox beyond fault codes: live groups, KWP2000 memory access, adaptation, service
+interval, actuator test and controller unlock. Every command it sends also appears in **Terminal** and in the
+session log, so you can check what actually went out on the K-line.
+
+Connect first on the **Terminal** tab (**USB KKL** -> pick the cable, ignition on). The Pro header shows
+`Controller: ... . Baud: ...`; if the connection is missing, the cards tell you. For KWP2000 modules the module
+and the baud rate are selected on the Terminal tab as well.
+
+### Live measurement (3 groups)
+
+Type three KW1281 group numbers (e.g. 001, 002, 003). The cards below show the current values of those groups from
+the running measurement - this is how you watch groups that are not on the fixed dashboard gauges.
+
+### KWP2000 (KW 2027)
+
+1. **Connect KWP2000** - opens the session (address discovery, then `10 89`).
+2. **Read faults** - lists the stored codes with their meanings.
+3. **Clear faults** - sends `14 FF 00` once and verifies the result with a read.
+4. **Address (hex)** + **Length** + **Read memory** - reads memory with `0x23`; not every module allows it without
+   a login. This works in the simulator too, no cable needed.
+
+### Adaptation channels
+
+Enter a **Channel** (and a new **Value** if you want to change it), then press **Read channel**, **Test value** or
+**Save**. Saving needs a login first: type the security code in **Login code** and press **Login** (the workshop
+field defaults to 31414). A saved value is permanent in the module, so read the current value first - it stays in
+the log.
+
+### Service interval (SIA)
+
+Meant for the instrument cluster (address 17). **Read channel** shows the current value; **Scan channels** reads
+channels 1-50 to find the one that holds the service interval (usually channel 2). On a VDO cluster: **Read cluster
+version** -> **Unlock cluster (VDO)** -> if it is still locked, **Auto-unlock (seed/key)**. Then **Reset service
+interval** writes the new value: it asks for confirmation and reads the value back afterwards, and the old value
+stays in the log so it can be written back.
+
+### Actuator test (0x04)
+
+**Start test** -> **Next actuator** -> **Stop**. The cluster walks through its own actuator list (gauges, warning
+lamps, segment test) and ends by itself; the connection is kept alive in the background. Ignition must be on.
+
+### EEPROM / RAM / ROM memory
+
+Same **Address** / **Length** fields, then **Read EEPROM**, **Read RAM** or **Read ROM**. Without a login many
+modules answer NAK - see the next card. The last dump is kept for **Save data**, and cluster dumps are searched for
+the SKC immobilizer code.
+
+### Memory unlock (code)
+
+When a read is refused, this card shows which code the module wants.
+
+- **VDO cluster:** 1) **Read cluster version**, 2) **Unlock with code** - `0x9D` plus the 4-byte code (hex, e.g.
+  `00 07 43 35`), 3) if it is still locked, **Auto-unlock (seed/key)** runs the `0x96` seed/key exchange.
+- **Other KW1281 modules:** enter the login code (e.g. 19283 with workshop 222 for the comfort module / central
+  locking), press **Login**, then read the memory again.
+
+### Saving the results
+
+**Save data** writes a text file with the last memory dump, the adaptation values and the live values to
+`Downloads/Pin7Diagnostics/prodata_<date>.log`; **Open folder** opens that folder.
+
+These tools write into the control unit. Read the current value first and keep the log - every write is permanent
+in the module.
+
 ## Languages
 
 The app interface is available in **English, Estonian and Russian**.
